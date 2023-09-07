@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
-const receiptRouter = require("./controllers/recieptController");
-const productsRouter = require("./controllers/productsController");
+const receiptController = require("./controllers/recieptController");
+const productController = require("./controllers/productsController");
+const addProductToReceiptController = require("./controllers/addProductToReceiptController");
 
 const app = express();
 
@@ -14,8 +15,9 @@ app.get("/", (req, res) => {
     .json("Welcome! Resources can be found at the /names endpoint");
 });
 
-app.use("/receipt", receiptRouter);
-app.use("/product", productsRouter);
+app.use("/receipts", receiptController);
+app.use("/products", productController);
+app.use("/addProductToReceipt", addProductToReceiptController)
 
 app.get("*", (req, res) => {
   res
