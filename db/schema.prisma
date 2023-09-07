@@ -1,11 +1,11 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
 datasource db {
     provider     = "mysql"
     url          = env("DATABASE_URL")
-    relationMode = "prisma"
-}
-
-generator client {
-    provider = "prisma-client-js"
+    relationMode = "prisma" // to not worry about foreign ket constrains 
 }
 
 model Product {
@@ -29,16 +29,13 @@ model Receipt {
     @@index([id])
 }
 
-model TokenBalance {
-    userId  String @unique
-    balance Int
-}
-
 model TokensIssued {
     id           String  @id @default(cuid())
     userId       String?
     tokensAmount Int
 }
+
+// use @unique property if you don't want this data to repeat through out the tables 
 
 // model ProductsOnReceipt {
 //     receipt   Receipt @relation(fields: [receiptId], references: [id])
