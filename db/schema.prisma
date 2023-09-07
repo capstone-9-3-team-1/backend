@@ -35,7 +35,10 @@ model TokensIssued {
     tokensAmount Int
 }
 
-// use @unique property if you don't want this data to repeat through out the tables 
+model TokenBalance {
+    userId       String @unique
+    tokenBalance Int
+}
 
 // model ProductsOnReceipt {
 //     receipt   Receipt @relation(fields: [receiptId], references: [id])
