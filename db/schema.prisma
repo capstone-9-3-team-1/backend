@@ -14,9 +14,10 @@ model Product {
     category    String
     business    String
     description String
+    price Int  // in cents
+    imageUrl String
     tokenValue  Int
     receipts    ReceiptProduct[]
-
     @@index([id])
 }
 
