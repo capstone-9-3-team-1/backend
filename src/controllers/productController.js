@@ -26,16 +26,15 @@ router.post("/", async (req, res) => {
 });
 
 //update product
-router.put("/:userId", async (req, res) => {
-  const { productId } = req.params;
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
   const updatedProductData = req.body;
   const updatedProduct = await prisma.product.update({
     where: {
-      id: parseInt(productId),
+      id: id,
     },
     data: updatedProductData,
   });
-
   res.json(updatedProduct);
 });
 
