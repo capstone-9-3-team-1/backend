@@ -1,33 +1,50 @@
 const express = require("express");
+const router = express.Router();
 
-const productRouter = express.Router();
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
-productRouter
-  .route("/")
-  .get(async (req, res) => {
-    const allProducts = await prisma.receipt.findMany();
-    res.json(allProducts);
-  })
-  .post(async (req, res) => {
-    const newProduct = await prisma.receipt.create({ data: req.body });
-    res.json(newProduct);
+//get all products
+router.get("/", async (req, res) => {
+  const allProducts = await prisma.product.findMany();
+  res.json(allProducts);
+});
+
+// get one product
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const product = await prisma.product.findUnique({
+    where: { id: id },
   });
+  res.json(product);
+});
 
-productRouter
-  .route("/:id")
-  .delete(async (req, res) => {
-    const id = req.params.id;
-    const deletedProduct = await prisma.receipt.delete({
-      where: { id: id },
-    });
-    res.json(deletedProduct);
-  })
-  .put(async (req, res) => {
-    const id = req.params.id;
-    const updatedProduct = await prisma.receipt.delete({
-      where: { id: id },
-    });
-    res.json(updatedProduct);
+// create new Product
+router.post("/", async (req, res) => {
+  const newProduct = await prisma.product.create({ data: req.body });
+  res.json(newProduct);
+});
+
+//update product
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const updatedProductData = req.body;
+  const updatedProduct = await prisma.product.update({
+    where: {
+      id: id,
+    },
+    data: updatedProductData,
   });
+  res.json(updatedProduct);
+});
 
-module.exports = productRouter;
+// delete Product
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedProduct = await prisma.product.delete({
+    where: { id: id },
+  });
+  res.json(deletedProduct);
+});
+
+module.exports = router;
