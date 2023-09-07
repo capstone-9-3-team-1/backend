@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+const receiptRouter = require("./controllers/recieptController");
+const productsRouter = require("./controllers/productsController");
 
 const app = express();
 
@@ -14,25 +14,8 @@ app.get("/", (req, res) => {
     .json("Welcome! Resources can be found at the /names endpoint");
 });
 
-//for Receipts
-app
-  .route("/receipts")
-  .get(async (req, res) => {
-    const allReceipts = await prisma.receipt.findMany();
-    res.json(allReceipts);
-  })
-  .post(async (req, res) => {
-    const newReceipt = await prisma.receipt.create({ data: req.body });
-    res.json(newReceipt);
-  });
-
-app.delete("/receipts/:id", async (req, res) => {
-  const id = req.params.id;
-  const deletedReceipt = await prisma.receipt.delete({
-    where: { id: parseInt(id) },
-  });
-  res.json(deletedReceipt);
-});
+app.use("/receipt", receiptRouter);
+app.use("/products", productsRouter);
 
 app.get("*", (req, res) => {
   res
