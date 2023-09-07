@@ -8,26 +8,74 @@ datasource db {
   relationMode = "prisma" // to not worry about foreign ket constrains 
 }
 
+// model User {
+//   id        String    @id @default(cuid())
+//   name      String // for react native add @db.Text
+//   age       Int @default(0)
+//   email     String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+//   receipts  Receipt[]
+// }
+
+// model Receipt {
+//   id        String   @id @default(cuid()) // UUID (Universally Unique Identifier) or CUID (Collision-resistant Unique Identifier)
+//   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // "onDelete: Cascade" means delteting User will delete all of his receipts 
+//   userId    String
+//   amount    Int // cents instead of dollars no floating points
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+
+//   @@index([userId])
+// }
+
+
 model User {
-  id        String    @id @default(cuid())
-  name      String // for react native add @db.Text
-  age       Int @default(0)
-  email     String
+  id            Int       @id @default(autoincrement())
+  username      String @unique
+  balance Int
   createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
   receipts  Receipt[]
 }
 
 model Receipt {
   id        String   @id @default(cuid()) // UUID (Universally Unique Identifier) or CUID (Collision-resistant Unique Identifier)
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade) // "onDelete: Cascade" means delteting User will delete all of his receipts 
-  userId    String
-  amount    Int // cents instead of dollars no floating points
+  userId    Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
+  products ReceiptProduct[]
   @@index([userId])
 }
+
+model Product {
+   id        String   @id @default(cuid())
+   name String
+   category String 
+   business String 
+   description String
+   tokenValue Int 
+   receipts ReceiptProduct[]
+}
+
+model ReceiptProduct {
+  receiptId    String
+  productId    String
+  quantity     Int
+  createdAt    DateTime @default(now())
+
+  // Define foreign keys and references to Receipts and Products
+  receipt      Receipt  @relation(fields: [receiptId], references: [id])
+  product      Product  @relation(fields: [productId], references: [id])
+ 
+
+  @@index([receiptId])
+  @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
+  @@index([productId])
+}
+
+
+
+
 
 // use @unique property if you don't want this data to repeat through out the tables 
 //String? - "?" if the data input is not necessary 
