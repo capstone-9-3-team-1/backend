@@ -1,19 +1,21 @@
 const express = require("express");
 
-const productsRouter = express.Router();
+const productRouter = express.Router();
 
-productsRouter
+productRouter
   .route("/")
   .get(async (req, res) => {
     const allProducts = await prisma.receipt.findMany();
     res.json(allProducts);
   })
   .post(async (req, res) => {
+    const { name, category, business, description, tokenValue, receipts } =
+      req.body;
     const newProduct = await prisma.receipt.create({ data: req.body });
     res.json(newProduct);
   });
 
-productsRouter
+productRouter
   .route("/:id")
   .delete(async (req, res) => {
     const id = req.params.id;
@@ -30,4 +32,4 @@ productsRouter
     res.json(updatedProduct);
   });
 
-module.exports = productsRouter;
+module.exports = productRouter;

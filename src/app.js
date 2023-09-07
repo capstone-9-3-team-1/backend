@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/receipt", receiptRouter);
-app.use("/products", productsRouter);
+app.use("/product", productsRouter);
 
 app.get("*", (req, res) => {
   res
