@@ -9,22 +9,22 @@ datasource db {
 }
 
 model Product {
-    id                String    @id @default(cuid())
-    name              String
-    category          String
-    business          String
-    description       String
-    tokenValue        Int
-    ProductsOnReceipt Receipt[]
+    id          String    @id @default(cuid())
+    name        String
+    category    String
+    business    String
+    description String
+    tokenValue  Int
+    receipts    Receipt[]
 
     @@index([id])
 }
 
 model Receipt {
-    id                String    @id @default(cuid())
-    createdAt         DateTime  @default(now())
-    userId            String?
-    ProductsOnReceipt Product[]
+    id        String    @id @default(cuid())
+    createdAt DateTime  @default(now())
+    userId    String?
+    products  Product[]
 
     @@index([id])
 }
