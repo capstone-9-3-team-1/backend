@@ -8,7 +8,43 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model User {
-    id   Int     @id @default(autoincrement())
-    name String?
+model Product {
+    id                String    @id @default(cuid())
+    name              String
+    category          String
+    business          String
+    description       String
+    tokenValue        Int
+    ProductsOnReceipt Receipt[]
+
+    @@index([id])
 }
+
+model Receipt {
+    id                String    @id @default(cuid())
+    createdAt         DateTime  @default(now())
+    userId            String?
+    ProductsOnReceipt Product[]
+
+    @@index([id])
+}
+
+model TokenBalance {
+    userId  String @unique
+    balance Int
+}
+
+model TokensIssued {
+    id           String  @id @default(cuid())
+    userId       String?
+    tokensAmount Int
+}
+
+// model ProductsOnReceipt {
+//     receipt   Receipt @relation(fields: [receiptId], references: [id])
+//     receiptId String  @unique // relation scalar field (used in the `@relation` attribute above)
+//     product   Product @relation(fields: [productId], references: [id])
+//     productId String // relation scalar field (used in the `@relation` attribute above)
+
+//     @@index([productId])
+// }
