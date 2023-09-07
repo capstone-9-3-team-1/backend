@@ -9,22 +9,22 @@ datasource db {
 }
 
 model Product {
-    id          String    @id @default(cuid())
+    id          String           @id @default(cuid())
     name        String
     category    String
     business    String
     description String
     tokenValue  Int
-    receipts    Receipt[]
+    receipts    ReceiptProduct[]
 
     @@index([id])
 }
 
 model Receipt {
-    id        String    @id @default(cuid())
-    createdAt DateTime  @default(now())
+    id        String           @id @default(cuid())
+    createdAt DateTime         @default(now())
     userId    String?
-    products  Product[]
+    products  ReceiptProduct[]
 
     @@index([id])
 }
@@ -38,6 +38,20 @@ model TokensIssued {
 model TokenBalance {
     userId       String @unique
     tokenBalance Int
+}
+
+model ReceiptProduct {
+    receiptId String
+    productId String
+    quantity  Int
+    createdAt DateTime @default(now())
+    // Define foreign keys and references to Receipts and Products
+    receipt   Receipt  @relation(fields: [receiptId], references: [id])
+    product   Product  @relation(fields: [productId], references: [id])
+
+    @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
+    @@index([receiptId])
+    @@index([productId])
 }
 
 // model ProductsOnReceipt {
