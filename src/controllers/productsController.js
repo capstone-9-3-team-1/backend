@@ -19,7 +19,7 @@ router.get("/:id", async (req, res) => {
   res.json(product);
 });
 
-// create new Product
+// create new product
 router.post("/", async (req, res) => {
   const newProduct = await prisma.product.create({ data: req.body });
   res.json(newProduct);

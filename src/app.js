@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const receiptController = require("./controllers/recieptController");
+const receiptController = require("./controllers/receiptController");
 const productController = require("./controllers/productsController");
 const receiptProductController = require("./controllers/receiptProduct")
 const app = express();
