@@ -36,7 +36,7 @@ model TokensIssued {
     tokensAmount Int
 }
 
-model TokenBalance {
+model UserTokensBalance {
     userId       String @unique
     tokenBalance Int
 }
@@ -50,16 +50,9 @@ model ReceiptProduct {
     receipt   Receipt  @relation(fields: [receiptId], references: [id])
     product   Product  @relation(fields: [productId], references: [id])
 
-    @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
+  
     @@index([receiptId])
+      @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
     @@index([productId])
 }
 
-// model ProductsOnReceipt {
-//     receipt   Receipt @relation(fields: [receiptId], references: [id])
-//     receiptId String  @unique // relation scalar field (used in the `@relation` attribute above)
-//     product   Product @relation(fields: [productId], references: [id])
-//     productId String // relation scalar field (used in the `@relation` attribute above)
-
-//     @@index([productId])
-// }

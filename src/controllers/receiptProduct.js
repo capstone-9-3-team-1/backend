@@ -4,6 +4,13 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+// get all receipts with all its products 
+router.get("/", async (req, res) => {
+  const allReceiptsAndItsProducts = await prisma.receiptProduct.findMany();
+  res.json(allReceiptsAndItsProducts);
+});
+
+// add product to a receipt 
 router.post('/', async (req, res) => {
     const { productId, receiptId, quantity } = req.body;
     try {
