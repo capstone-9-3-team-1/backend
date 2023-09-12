@@ -4,6 +4,30 @@ const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
+//get all products in one receipt 
+router.get("/:id/products", async (req, res) => {
+  const id = req.params.id;
+  const receipt = await prisma.receipt.findUnique({
+    where: {
+      id: id,
+    },
+    include: {
+      products: {
+        include: {
+          product: true,
+        },
+      },
+    },
+  });
+  if (!receipt) {
+    return res.status(404).json({ error: 'Receipt not found' });
+  }
+  const productsInReceipt = receipt.products.map((rp) => rp.product);
+  res.json(productsInReceipt);
+} )
+
+
+
 //get all receipts
 router.get("/", async (req, res) => {
   const allReceipts = await prisma.receipt.findMany();
