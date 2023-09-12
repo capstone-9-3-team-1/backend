@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const receiptController = require("./controllers/receiptController");
 const productController = require("./controllers/productsController");
-const receiptProductController = require("./controllers/receiptProduct")
+const receiptProductController = require("./controllers/receiptProduct");
+const tokensIssuedController = require("./controllers/tokensIssuedController");
 const app = express();
 
 app.use(cors());
@@ -16,7 +17,8 @@ app.get("/", (req, res) => {
 
 app.use("/receipts", receiptController);
 app.use("/products", productController);
-app.use("/receiptProduct", receiptProductController)
+app.use("/receiptProduct", receiptProductController);
+app.use("/tokensIssued", tokensIssuedController);
 
 app.get("*", (req, res) => {
   res
