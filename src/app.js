@@ -5,6 +5,7 @@ const productController = require("./controllers/productsController");
 const receiptProductController = require("./controllers/receiptProduct");
 const tokensIssuedController = require("./controllers/tokensIssuedController");
 const userTokensBalanceController = require("./controllers/userTokensBalanceController");
+const rewardController = require("./controllers/rewardController");
 const app = express();
 
 app.use(cors());
@@ -21,6 +22,7 @@ app.use("/products", productController);
 app.use("/receiptProduct", receiptProductController);
 app.use("/tokensIssued", tokensIssuedController);
 app.use("/userTokensBalance", userTokensBalanceController);
+app.use("/rewards", rewardController);
 app.get("*", (req, res) => {
   res
     .status(404)

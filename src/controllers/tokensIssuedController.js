@@ -8,5 +8,6 @@ router.post("/", async (req, res) => {
   const newTokensIssued = await prisma.tokensIssued.create({ data: req.body });
   res.json(newTokensIssued);
 });
+
 // comment
 module.exports = router;
