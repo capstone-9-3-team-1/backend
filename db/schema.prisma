@@ -14,10 +14,11 @@ model Product {
     category    String
     business    String
     description String
-    price Int  // in cents
-    imageUrl String
+    price       Int // in cents
+    imageUrl    String
     tokenValue  Int
     receipts    ReceiptProduct[]
+
     @@index([id])
 }
 
@@ -50,9 +51,7 @@ model ReceiptProduct {
     receipt   Receipt  @relation(fields: [receiptId], references: [id])
     product   Product  @relation(fields: [productId], references: [id])
 
-  
+    @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
     @@index([receiptId])
-      @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
     @@index([productId])
 }
-
