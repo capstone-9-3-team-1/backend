@@ -4,6 +4,7 @@ const receiptController = require("./controllers/receiptController");
 const productController = require("./controllers/productsController");
 const receiptProductController = require("./controllers/receiptProduct");
 const tokensIssuedController = require("./controllers/tokensIssuedController");
+const userTokensBalanceController = require("./controllers/userTokensBalanceController");
 const app = express();
 
 app.use(cors());
@@ -19,7 +20,7 @@ app.use("/receipts", receiptController);
 app.use("/products", productController);
 app.use("/receiptProduct", receiptProductController);
 app.use("/tokensIssued", tokensIssuedController);
-
+app.use("/userTokensBalance", userTokensBalanceController);
 app.get("*", (req, res) => {
   res
     .status(404)
