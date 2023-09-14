@@ -9,4 +9,12 @@ router.post("/", async (req, res) => {
   res.json(newTokensIssued);
 });
 
+router.delete("/:id", async (req, res) => {
+  const id = req.params.id;
+  const deletedTokensIssued = await prisma.product.delete({
+    where: { id: id },
+  });
+  res.json(deletedTokensIssued);
+});
+
 module.exports = router;
