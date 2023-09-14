@@ -14,10 +14,11 @@ model Product {
     category    String
     business    String
     description String
-    price Int  // in cents
-    imageUrl String
+    price       Int // in cents
+    imageUrl    String
     tokenValue  Int
     receipts    ReceiptProduct[]
+
     @@index([id])
 }
 
@@ -35,11 +36,20 @@ model TokensIssued {
     userId       String?
     tokensAmount Int
     createdAt DateTime @default(now())
+    issued       Boolean @default(false)
 }
 
 model UserTokensBalance {
-    userId       String @unique
-    tokenBalance Int
+    userId        String   @unique
+    tokensBalance Int
+    createdAt     DateTime @default(now())
+}
+
+model Reward {
+    id           String   @id @default(cuid())
+    tokensAmount Int
+    name         String
+    createdAt    DateTime @default(now())
 }
 
 model ReceiptProduct {
@@ -51,9 +61,7 @@ model ReceiptProduct {
     receipt   Receipt  @relation(fields: [receiptId], references: [id])
     product   Product  @relation(fields: [productId], references: [id])
 
-  
+    @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
     @@index([receiptId])
-      @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
     @@index([productId])
 }
-
