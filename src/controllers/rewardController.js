@@ -22,6 +22,19 @@ router.get("/:id", async (req, res) => {
   });
   res.json(reward);
 });
+
+// edit a reward
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const updatedRewardData = req.body;
+  const updatedReward = await prisma.reward.update({
+    where: {
+      id: id,
+    },
+    data: updatedRewardData,
+  });
+  res.json(updatedReward);
+});
 // delete Product
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;

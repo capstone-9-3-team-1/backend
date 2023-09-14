@@ -32,11 +32,11 @@ model Receipt {
 }
 
 model TokensIssued {
-    id           String  @id @default(cuid())
+    id           String   @id @default(cuid())
     userId       String?
     tokensAmount Int
-    createdAt DateTime @default(now())
-    issued       Boolean @default(false)
+    createdAt    DateTime @default(now())
+    issued       Boolean  @default(false)
 }
 
 model UserTokensBalance {
@@ -48,7 +48,7 @@ model UserTokensBalance {
 model Reward {
     id           String   @id @default(cuid())
     tokensAmount Int
-    name         String
+    rewardName   String
     createdAt    DateTime @default(now())
 }
 
