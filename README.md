@@ -127,6 +127,7 @@ This table has a field of __"issued"__ with a __default value__ of __"false"__. 
 | GET| `/api/tokensIssued` | see all tokensIssued |
 | GET| `/api/tokensIssued/{tokensIssuedId}` | see one tokensIssued |
 | POST| `/api/tokensIssued` | create new tokensIssued |
+| PUT| `/api/tokensIssued/{tokensIssuedId}` | update tokensIssued 
 
 
 <br>
