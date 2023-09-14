@@ -8,7 +8,7 @@
    - [Fetch Products](#fetch-products)
    - [Fetch Receipts](#fetch-receipts)
    - [Fetch ReceiptProduct](#fetch-receiptproduct)
-    - [Fetch ReceiptProduct](#fetch-tokensIssued)
+   
 
 <br>
 <br>
@@ -115,7 +115,7 @@ This table has a field of __"issued"__ with a __default value__ of __"false"__. 
 <br>
 
 
-| id (tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
+| id(tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
 |------------|------------------|-------------|------------|---------|
 |     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
 
@@ -134,5 +134,36 @@ This table has a field of __"issued"__ with a __default value__ of __"false"__. 
 <br>
 
 - - -
+
+
+## Fetch UserTokensBalance 
+
+This 
+
+
 <br>
+<small>table row example:</small>
+<br>
+<br>
+
+
+| id(tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
+|------------|------------------|-------------|------------|---------|
+|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
+
+<br>
+<br>
+
+| HTTP Method: | endpoints | description |
+|----------|----------|----------|
+| GET| `/api/tokensIssued` | see all tokensIssued |
+| GET| `/api/tokensIssued/{tokensIssuedId}` | see one tokensIssued |
+| POST| `/api/tokensIssued` | create new tokensIssued |
+| PUT| `/api/tokensIssued/{tokensIssuedId}` | update tokensIssued 
+
+
+<br>
+<br>
+
+- - -
 
