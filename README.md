@@ -106,6 +106,7 @@ This table constists of __composite primary key__ - unique combinations of forei
 - - - 
 
 ## Fetch TokensIssued
+This table has a field of __"issued"__ with a __default value__ of __"false"__. Make sure to change value to __"true"__ when tokens are issued to a user. 
 
 
 <br>
@@ -114,17 +115,18 @@ This table constists of __composite primary key__ - unique combinations of forei
 <br>
 
 
-| id (tokensIssuedId)| userId          | tokensAmount    | createdAt |
-|------------|------------------|-------------|------------|
-|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z |
+| id (tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
+|------------|------------------|-------------|------------|---------|
+|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
 
 <br>
 <br>
 
 | HTTP Method: | endpoints | description |
 |----------|----------|----------|
-| POST| `/api/tokensIssued` | create new receipt |
-| DELETE| `/api/receipts/{receiptId}` | delete receipt |
+| GET| `/api/tokensIssued` | see all tokensIssued |
+| GET| `/api/tokensIssued/{tokensIssuedId}` | see one tokensIssued |
+| POST| `/api/tokensIssued` | create new tokensIssued |
 
 
 <br>
