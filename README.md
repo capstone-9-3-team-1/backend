@@ -8,6 +8,7 @@
    - [Fetch Products](#fetch-products)
    - [Fetch Receipts](#fetch-receipts)
    - [Fetch ReceiptProduct](#fetch-receiptproduct)
+    - [Fetch ReceiptProduct](#fetch-tokensIssued)
 
 <br>
 <br>
@@ -104,8 +105,33 @@ This table constists of __composite primary key__ - unique combinations of forei
 
 - - - 
 
+## Fetch TokensIssued
+This table has a field of __"issued"__ with a __default value__ of __"false"__. Make sure to change value to __"true"__ when tokens are issued to a user. 
 
-<!-- ### Response Format
 
-Responses from the API are returned in JSON format.
- -->
+<br>
+<small>table row example:</small>
+<br>
+<br>
+
+
+| id (tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
+|------------|------------------|-------------|------------|---------|
+|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
+
+<br>
+<br>
+
+| HTTP Method: | endpoints | description |
+|----------|----------|----------|
+| GET| `/api/tokensIssued` | see all tokensIssued |
+| GET| `/api/tokensIssued/{tokensIssuedId}` | see one tokensIssued |
+| POST| `/api/tokensIssued` | create new tokensIssued |
+
+
+<br>
+<br>
+
+- - -
+<br>
+

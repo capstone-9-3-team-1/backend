@@ -35,6 +35,7 @@ model TokensIssued {
     id           String  @id @default(cuid())
     userId       String?
     tokensAmount Int
+    createdAt DateTime @default(now())
     issued       Boolean @default(false)
 }
 
