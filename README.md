@@ -8,6 +8,12 @@
    - [Fetch Products](#fetch-products)
    - [Fetch Receipts](#fetch-receipts)
    - [Fetch ReceiptProduct](#fetch-receiptproduct)
+   - [Fetch TokensIssued](#fetch-tokensissued)
+   - [Fetch UserTokensBalance](#fetch-usertokensbalance)
+   - [Fetch Rewards](#fetch-rewards)
+   - [Search Products](#search-products)
+   - [Search Rewards](#search-rewards)
+   
    
 
 <br>
@@ -26,7 +32,7 @@
 
 | id (receiptId)| createdAt           | userId    |
 |------------|------------------|-------------|
-|     clmc9j7yo00005p8yf62eb4e7     | 2023-09-09T16:51:04.848Z      | clerkId(string) | 
+|     clmc9j7yo00005p8yf62eb4e7     | 2023-09-09T16:51:04.848Z      | {clerkId} | 
 
 <br>
 <br>
@@ -117,7 +123,7 @@ This table has a field of __"issued"__ with a __default value__ of __"false"__. 
 
 | id(tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
 |------------|------------------|-------------|------------|---------|
-|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
+|     clmfou39500005pe6a8f4iohl    | {clerkId} | 15 | 2023-09-12T02:22:44.926Z | false |
 
 <br>
 <br>
@@ -138,7 +144,7 @@ This table has a field of __"issued"__ with a __default value__ of __"false"__. 
 
 ## Fetch UserTokensBalance 
 
-This 
+The __primary key__ for this table is derived from the Clerk Object, meaning it is not generated automatically, and you will need to add this value manually.
 
 
 <br>
@@ -147,23 +153,90 @@ This
 <br>
 
 
-| id(tokensIssuedId)| userId          | tokensAmount    | createdAt | issued |
-|------------|------------------|-------------|------------|---------|
-|     clmfou39500005pe6a8f4iohl    | Ari | 15 | 2023-09-12T02:22:44.926Z | false |
+| userId| tokensBalance         | createdAt   |
+|------------|------------------|-------------|
+|     {clerkId}    | 50 |  2023-09-15T01:52:06.438Z |
 
 <br>
 <br>
 
 | HTTP Method: | endpoints | description |
 |----------|----------|----------|
-| GET| `/api/tokensIssued` | see all tokensIssued |
-| GET| `/api/tokensIssued/{tokensIssuedId}` | see one tokensIssued |
-| POST| `/api/tokensIssued` | create new tokensIssued |
-| PUT| `/api/tokensIssued/{tokensIssuedId}` | update tokensIssued 
+| POST| `/api/userTokensBalance` | create new tokens balance for a user |
+| GET| `/api/userTokensBalance` | get tokens balance of all users |
+| GET| `/api/userTokensBalance/{clerkId}` | see tokens balance of one user |
+| PUT| `/api/userTokensBalance/{clerkId}` | update balance of one user |
 
 
 <br>
 <br>
 
 - - -
+
+## Fetch Rewards
+
+
+<br>
+<small>table row example:</small>
+<br>
+<br>
+
+
+| id(rewardId)| tokensAmount        | rewardName   |  createdAt |
+|------------|------------------|-------------|--------|
+|     {clerkId}    | 50 |  gift card | 2023-09-15T02:42:42.293Z  |
+
+<br>
+<br>
+
+| HTTP Method: | endpoints | description |
+|----------|----------|----------|
+| POST| `/api/rewards` | create new reward |
+| GET| `/api/rewards` | get all rewards |
+| GET| `/api/rewards/{clerkId}` | get one reward |
+| PUT| `/api/rewards/{clerkId}` | edit reward |
+
+
+<br>
+<br>
+
+- - -
+
+## Search Products
+
+Search takes a parameter and filters products containing the specified parameter in their product names.
+
+<br>
+<br>
+
+
+| HTTP Method: | endpoints | description |
+|----------|----------|----------|
+| GET| `/api/search/products/{search term}` | search products |
+
+
+
+<br>
+<br>
+
+- - -
+## Search Rewards
+
+Search takes a parameter and filters rewards containing the specified parameter in their reward names.
+
+<br>
+<br>
+
+
+| HTTP Method: | endpoints | description |
+|----------|----------|----------|
+| GET| `/api/search/rewards/{search term}` | search rewards |
+
+
+
+<br>
+<br>
+
+- - -
+
 

@@ -9,11 +9,13 @@ router.post("/", async (req, res) => {
   const newReward = await prisma.reward.create({ data: req.body });
   res.json(newReward);
 });
+
 //get all rewards
 router.get("/", async (req, res) => {
   const allRewards = await prisma.reward.findMany();
   res.json(allRewards);
 });
+
 // get single reward
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
@@ -25,7 +27,7 @@ router.get("/:id", async (req, res) => {
 
 // edit a reward
 router.put("/:id", async (req, res) => {
-  const { id } = req.params;
+  const id = req.params.id;
   const updatedRewardData = req.body;
   const updatedReward = await prisma.reward.update({
     where: {
@@ -35,7 +37,8 @@ router.put("/:id", async (req, res) => {
   });
   res.json(updatedReward);
 });
-// delete Product
+
+// delete reward
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
   const deletedReward = await prisma.reward.delete({
@@ -43,5 +46,6 @@ router.delete("/:id", async (req, res) => {
   });
   res.json(deletedReward);
 });
+
 
 module.exports = router;
