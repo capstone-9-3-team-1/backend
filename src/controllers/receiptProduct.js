@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
     }
   });
 
-  // get all receipts with all products  within them 
+  // get all receipts with all products within them 
 router.get("/", async (req, res) => {
   const allReceiptsAndItsProducts = await prisma.receiptProduct.findMany();
   res.json(allReceiptsAndItsProducts);

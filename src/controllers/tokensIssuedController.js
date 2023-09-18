@@ -28,14 +28,23 @@ router.get("/:tokensIssuedId", async (req, res) => {
 //update tokensIssued
 router.put("/:tokensIssuedId", async (req, res) => {
   const id = req.params.tokensIssuedId;
-  const updatedProductData = req.body;
-  const updatedProduct = await prisma.product.update({
+  const updatedTokensIssuedData = req.body;
+  const updatedTokensIssued = await prisma.tokensIssued.update({
     where: {
       id: id,
     },
-    data: updatedProductData,
+    data: updatedTokensIssuedData,
   });
-  res.json(updatedProduct);
+  res.json(updatedTokensIssued);
+});
+
+// delete tokensIssued
+router.delete("/:tokensIssuedId", async (req, res) => {
+  const id = req.params.tokensIssuedId;
+  const deletedTokensIssued = await prisma.tokensIssued.delete({
+    where: { id: id },
+  });
+  res.json(deletedTokensIssued);
 });
 
 
