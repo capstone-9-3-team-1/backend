@@ -65,3 +65,10 @@ model ReceiptProduct {
     @@index([receiptId])
     @@index([productId])
 }
+
+model Category {
+    id            Int       @id @default(autoincrement())
+    name          String
+    description   String?  @db.Text
+    imageUrl      String?  @db.Text
+}
