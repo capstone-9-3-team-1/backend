@@ -13,6 +13,7 @@ model Product {
     name        String
     category    String
     business    String
+    spec        String?
     description String
     price       Int // in cents
     imageUrl    String
@@ -21,6 +22,7 @@ model Product {
 
     @@index([id])
 }
+
 
 model Receipt {
     id        String           @id @default(cuid())
@@ -72,3 +74,4 @@ model Category {
     description   String?  @db.Text
     imageUrl      String?  @db.Text
 }
+
