@@ -8,6 +8,7 @@ const userTokensBalanceController = require("./controllers/userTokensBalanceCont
 const rewardController = require("./controllers/rewardController");
 const searchController = require("./controllers/searchController");
 const categoryController = require("./controllers/categoryController");
+const articleController = require("././controllers/articleController")
 const app = express();
 
 app.use(cors());
@@ -27,6 +28,7 @@ app.use("/userTokensBalance", userTokensBalanceController);
 app.use("/rewards", rewardController);
 app.use("/search", searchController);
 app.use("/categories", categoryController);
+app.use("/articles", articleController);
 
 app.get("*", (req, res) => {
   res
