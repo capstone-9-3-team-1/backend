@@ -75,10 +75,11 @@ model Category {
 }
 
 model Article {
-    id          String @id @default(cuid())
-    imageUrl    String
-    title       String
-    text String @db.Text
+    id          Int     @id @default(autoincrement())
+    imageUrl String
+    title    String
+    link     String?
+    text     String? @db.Text
 }
 
 //include: {

@@ -10,6 +10,15 @@ router.get("/", async (req, res) => {
   res.json(allArticles);
 });
 
+// get one Article
+router.get("/:id", async (req, res) => {
+    const id = req.params.id;
+    const article = await prisma.article.findUnique({
+      where: { id: parseInt(id) },
+    });
+    res.json(article);
+  });
+
 // create new article
 router.post("/", async (req, res) => {
   const newArticle = await prisma.article.create({ data: req.body });
