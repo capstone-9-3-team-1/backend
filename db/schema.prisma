@@ -49,9 +49,12 @@ model UserTokensBalance {
 model Reward {
     id           String   @id @default(cuid())
     tokensAmount Int
-    rewardName   String
+    name   String
     createdAt    DateTime @default(now())
+    imageUrl     String
+    description  String? @db.Text
 }
+
 
 model ReceiptProduct {
     receiptId String

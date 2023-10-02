@@ -31,7 +31,7 @@ router.put("/:id", async (req, res) => {
   const updatedArticleData = req.body;
   const updatedArticle = await prisma.article.update({
     where: {
-      id: id,
+      id: parseInt(id),
     },
     data: updatedArticleData,
   });
