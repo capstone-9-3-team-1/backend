@@ -48,6 +48,7 @@ model UserTokensBalance {
 
 model Reward {
     id           String   @id @default(cuid())
+    featured     Boolean
     tokensAmount Int
     name   String
     createdAt    DateTime @default(now())
