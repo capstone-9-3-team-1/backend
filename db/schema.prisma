@@ -48,9 +48,12 @@ model UserTokensBalance {
 
 model Reward {
   id           String   @id @default(cuid())
+  featured     Boolean
   tokensAmount Int
-  rewardName   String
+  name         String
   createdAt    DateTime @default(now())
+  imageUrl     String
+  description  String?  @db.Text
 }
 
 model ReceiptProduct {
@@ -80,7 +83,3 @@ model Article {
   link     String?
   text     String? @db.Text
 }
-
-//include: {
-//     products: true,
-//   },
