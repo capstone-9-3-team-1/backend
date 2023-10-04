@@ -10,11 +10,31 @@ router.post("/", async (req, res) => {
   res.json(newReward);
 });
 
-//get all rewards
+//get all rewards (not featured)
 router.get("/", async (req, res) => {
   const allRewards = await prisma.reward.findMany();
-  res.json(allRewards);
+  const notFeatured = allRewards.filter((reward) => 
+  reward.featured === false)
+  res.json(notFeatured);
 });
+
+// get all featured rewards
+router.get("/featured", async (req, res) => {
+  const allRewards = await prisma.reward.findMany();
+  const featuredRewards = allRewards.filter((reward) =>
+  reward.featured === true)
+  res.json(featuredRewards);
+});
+
+// get all NOT featured rewards
+router.get("/not-featured", async (req, res) => {
+  const allRewards = await prisma.reward.findMany();
+  const notFeaturedRewards = allRewards.filter((reward) =>
+  reward.featured === false)
+
+  res.json(notFeaturedRewards);
+});
+
 
 // get single reward
 router.get("/:id", async (req, res) => {
