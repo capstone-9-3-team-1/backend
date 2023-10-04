@@ -28,7 +28,7 @@ app.use("/userTokensBalance", userTokensBalanceController);
 app.use("/rewards", rewardController);
 app.use("/search", searchController);
 app.use("/categories", categoryController);
-app.use("/articles", articleController);
+app.use("/articles", articleController)
 
 app.get("*", (req, res) => {
   res

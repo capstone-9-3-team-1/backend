@@ -182,9 +182,9 @@ The __primary key__ for this table is derived from the Clerk Object, meaning it 
 <br>
 
 
-| id(rewardId)| tokensAmount        | rewardName   |  createdAt |
-|------------|------------------|-------------|--------|
-|     {clerkId}    | 50 |  gift card | 2023-09-15T02:42:42.293Z  |
+| id(rewardId)| featured | tokensAmount        | name   |  createdAt | imageUrl | description _
+|------------|-----------|------------------|-------------|--------|-------------|-----------
+|   cln9hulmy0000xuznrfi6hdff  | true | 50   | gift card |   2023-09-15T02:42:42.293Z  | https://storage.googleapis.com/atara_images/tesla-model-3.png |  "some text" |
 
 <br>
 <br>
@@ -192,7 +192,8 @@ The __primary key__ for this table is derived from the Clerk Object, meaning it 
 | HTTP Method: | endpoints | description |
 |----------|----------|----------|
 | POST| `/api/rewards` | create new reward |
-| GET| `/api/rewards` | get all rewards |
+| GET| `/api/rewards` | get all rewards (not featured) |
+| GET| `/api/rewards/featured`  | get all featured rewards|
 | GET| `/api/rewards/{clerkId}` | get one reward |
 | PUT| `/api/rewards/{clerkId}` | edit reward |
 
