@@ -1,14 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { ClerkExpressWithAuth } = require("@clerk/clerk-sdk-node");
+const axios = require("axios");
 
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-
-const mindee = require("mindee");
-const mindeeClient = new mindee.Client({
-  apiKey: process.env.MINDEE_API_KEY,
-});
 
 //get all products in one receipt
 router.get("/:id/products", async (req, res) => {
@@ -49,29 +44,43 @@ router.get("/:id", async (req, res) => {
 
 // create new receipt
 router.post("/", async (req, res) => {
-  const { photo } = req.body;
+  console.log(req.body);
+  const receiptOcrEndpoint =
+    "https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict";
 
-  if (!photo) {
-    res.json({ message: "Request needs photo" });
-  }
-  try {
-    const inputSource = mindeeClient.docFromBase64(photo, "new-recipt");
-    const result = await mindeeClient.parse(
-      mindee.product.ReceiptV5,
-      inputSource
-    );
-    console.log(result.document.inference.prediction.date.value);
-    // for (const lineItemsElem of result.document.inference.prediction
-    //   .lineItems) {
-    //   console.log(lineItemsElem.value);
-    // }
-    res.json(result.document.toString());
-  } catch (error) {
-    res.json(error);
-  }
+  const receiptResult = await axios.post(
+    receiptOcrEndpoint,
+    {
+      document: req.body.photo,
+    },
+    { headers: { Authorization: "Token d08debaaf613b1da78ff63683fdd2d24" } }
+  );
+console.log(receiptResult)
+let productsOnReceipt 
+try {
+  productsOnReceipt = receiptResult.data.document.inference.pages[0].prediction.line_items.map(item => ({
+    name: item.description,
+    quantity: item.quantity
+   }))
 
-  // const newReceipt = await prisma.receipt.create({ data: req.body });
+}catch (e){
+  console.error(e);
+  throw new Error("broke when parsing receipt")
+}
+const productsFromDB = await prisma.product.findMany({
+  where: {
+    OR: productsOnReceipt.map(product => product.name)
+  },
+ } 
+)
+
+const productUserLinks = productsFromDB.map((product) => ({ productId: product.id, userId: req.body.userId }));
+  const newReceipt = await prisma.receipt.create({ data: {userId:req.body.userId, products: productUserLinks } });
+  res.json(newReceipt);
+
 });
+
+
 
 // delete receipt
 router.delete("/:id", async (req, res) => {
