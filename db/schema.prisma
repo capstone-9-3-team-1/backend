@@ -8,6 +8,11 @@ datasource db {
     relationMode = "prisma" // to not worry about foreign ket constrains 
 }
 
+
+// model User {
+    
+// }
+
 model Product {
     id          String           @id @default(cuid())
     name        String
@@ -18,6 +23,7 @@ model Product {
     price       Int // in cents
     imageUrl    String
     tokenValue  Int
+    favorite    Boolean?
     receipts    ReceiptProduct[]
 
     @@index([id])
