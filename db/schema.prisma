@@ -1,11 +1,11 @@
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider     = "mysql"
-    url          = env("DATABASE_URL")
-    relationMode = "prisma" // to not worry about foreign ket constrains 
+  provider     = "mysql"
+  url          = env("DEV_DATABASE_URL")
+  relationMode = "prisma"
 }
 
 
@@ -14,6 +14,7 @@ datasource db {
 // }
 
 model Product {
+
     id          String           @id @default(cuid())
     name        String
     category    String
@@ -26,30 +27,31 @@ model Product {
     favorite    Boolean?
     receipts    ReceiptProduct[]
 
-    @@index([id])
+
+  @@index([id])
 }
 
 model Receipt {
-    id        String           @id @default(cuid())
-    createdAt DateTime         @default(now())
-    userId    String?
-    products  ReceiptProduct[]
+  id        String           @id @default(cuid())
+  createdAt DateTime         @default(now())
+  userId    String?
+  products  ReceiptProduct[]
 
-    @@index([id])
+  @@index([id])
 }
 
 model TokensIssued {
-    id           String   @id @default(cuid())
-    userId       String?
-    tokensAmount Int
-    createdAt    DateTime @default(now())
-    issued       Boolean  @default(false)
+  id           String   @id @default(cuid())
+  userId       String?
+  tokensAmount Int
+  issued       Boolean  @default(false)
+  createdAt    DateTime @default(now())
 }
 
 model UserTokensBalance {
-    userId        String   @unique
-    tokensBalance Int
-    createdAt     DateTime @default(now())
+  userId        String   @unique
+  createdAt     DateTime @default(now())
+  tokensBalance Int
 }
 
 model Reward {
@@ -59,38 +61,38 @@ model Reward {
     name   String
     createdAt    DateTime @default(now())
     imageUrl     String
-    business     String?
     description  String? @db.Text
 }
 
 
 model ReceiptProduct {
-    receiptId String
-    productId String
-    quantity  Int
-    createdAt DateTime @default(now())
-    // Define foreign keys and references to Receipts and Products
-    receipt   Receipt  @relation(fields: [receiptId], references: [id])
-    product   Product  @relation(fields: [productId], references: [id])
+  receiptId String
+  productId String
+  quantity  Int
+  createdAt DateTime @default(now())
+  receipt   Receipt  @relation(fields: [receiptId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
 
-    @@id([receiptId, productId]) // Ensures uniqueness of receipt and product combination within a receipt
-    @@index([receiptId])
-    @@index([productId])
+  @@id([receiptId, productId])
+  @@index([receiptId])
+  @@index([productId])
 }
 
 model Category {
-    id          Int     @id @default(autoincrement())
-    name        String
-    description String? @db.Text
-    imageUrl    String? @db.Text
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @db.Text
+  imageUrl    String? @db.Text
 }
 
 model Article {
-    id          Int     @id @default(autoincrement())
-    imageUrl String
-    title    String
-    link     String?
-    text     String? @db.Text
+  id       Int     @id @default(autoincrement())
+  imageUrl String
+  title    String
+  link     String?
+  text     String? @db.Text
 }
 
-
+//include: {
+//     products: true,
+//   },
