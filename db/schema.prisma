@@ -17,9 +17,10 @@ model Product {
     category    String
     business    String
     spec        String?
-    description String
+    description String? @db.Text
     price       Int // in cents
     imageUrl    String
+    shopLink    String? @db.Text
     tokenValue  Int
     favorite    Boolean?
     receipts    ReceiptProduct[]
