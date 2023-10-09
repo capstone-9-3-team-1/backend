@@ -59,6 +59,7 @@ model Reward {
     name   String
     createdAt    DateTime @default(now())
     imageUrl     String
+    business     String?
     description  String? @db.Text
 }
 
@@ -92,6 +93,4 @@ model Article {
     text     String? @db.Text
 }
 
-//include: {
-//     products: true,
-//   },
+
