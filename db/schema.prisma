@@ -17,9 +17,10 @@ model Product {
     category    String
     business    String
     spec        String?
-    description String
+    description String? @db.Text
     price       Int // in cents
     imageUrl    String
+    shopLink    String? @db.Text
     tokenValue  Int
     favorite    Boolean?
     receipts    ReceiptProduct[]
@@ -78,6 +79,7 @@ model ReceiptProduct {
 model Category {
   id          Int     @id @default(autoincrement())
   name        String
+  shortName   String? 
   description String? @db.Text
   imageUrl    String? @db.Text
 }
