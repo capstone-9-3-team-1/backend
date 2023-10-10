@@ -8,11 +8,13 @@ const userTokensBalanceController = require("./controllers/userTokensBalanceCont
 const rewardController = require("./controllers/rewardController");
 const searchController = require("./controllers/searchController");
 const categoryController = require("./controllers/categoryController");
-const articleController = require("././controllers/articleController")
+const articleController = require("././controllers/articleController");
 const app = express();
 
+
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit: "2MB"}));
+
 
 app.get("/", (req, res) => {
   res
