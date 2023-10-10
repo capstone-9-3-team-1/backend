@@ -47,7 +47,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const receiptOcrEndpoint =
     "https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict";
-
+  
   //     const mindeeClient = new mindee.Client({apiKey:"d08debaaf613b1da78ff63683fdd2d24" });
   //     const inputSource = mindeeClient.docFromBase64(req.body.photo, "receiptFile.jpg");
   // console.log(inputSource)
@@ -65,11 +65,11 @@ router.post("/", async (req, res) => {
     { headers: { Authorization: "Token d08debaaf613b1da78ff63683fdd2d24" } }
   );
 
-  if (receiptResult.data.error) {
-    console.log(receiptResult.data.error);
-  } else {
-    console.log(receiptResult.data.document);
-  }
+  // if (receiptResult.data.error) {
+  //   console.log(receiptResult.data.error);
+  // } else {
+  //   console.log(receiptResult.data.document);
+  // }
 
   let productsOnReceipt;
   try {
@@ -78,8 +78,10 @@ router.post("/", async (req, res) => {
         (item) => ({
           name: item.description,
           quantity: item.quantity,
+          // 
         })
       );
+      console.log(productsOnReceipt)
   } catch (e) {
     console.error(e);
     res.status(400).send("Could not parse receipt");
