@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const axios = require("axios");
 const mindee = require("mindee");
-
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const mindeeKey = process.env.MINDEE_API_KEY;
 
 //get all products in one receipt
 router.get("/:id/products", async (req, res) => {
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
   const receiptOcrEndpoint =
     "https://api.mindee.net/v1/products/mindee/expense_receipts/v5/predict";
   
-  //     const mindeeClient = new mindee.Client({apiKey:"d08debaaf613b1da78ff63683fdd2d24" });
+  //     const mindeeClient = new mindee.Client({apiKey:"" });
   //     const inputSource = mindeeClient.docFromBase64(req.body.photo, "receiptFile.jpg");
   // console.log(inputSource)
   //     const apiResponse = await mindeeClient.parse(
@@ -62,9 +62,9 @@ router.post("/", async (req, res) => {
     {
       document: req.body.photo,
     },
-    { headers: { Authorization: "Token d08debaaf613b1da78ff63683fdd2d24" } }
+    { headers: { Authorization: `Token ${mindeeKey}`} }
   );
-
+  
   // if (receiptResult.data.error) {
   //   console.log(receiptResult.data.error);
   // } else {
